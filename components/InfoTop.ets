@@ -13,6 +13,9 @@ function fancyButton (ison: boolean) {
 @Component
 struct InfoTop {
   @State ison: boolean = true
+  onSort = (index: number) => {
+
+  }
   build() {
     Row() {
       Text('全部评论')
@@ -24,11 +27,13 @@ struct InfoTop {
           .fancyButton(this.ison)
           .onClick(() => {
             this.ison = true
+            this.onSort(0)
           })
         Button('最热', { stateEffect: false})
           .fancyButton(!this.ison)
           .onClick(() => {
             this.ison = false
+            this.onSort(1)
           })
       }
       .backgroundColor('#F7F8FA')

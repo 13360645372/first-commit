@@ -18,6 +18,9 @@ struct Index {
       familyName: 'myfont',
       familySrc: '/fonts/iconfont.ttf'
     })
+
+    // 默认最新
+    this.handleSort(0)
   }
 
   SubmitComment (comment: string) {
@@ -39,11 +42,27 @@ struct Index {
     this.ListArr.splice(index, 1, itemData)
   }
 
+  handleSort (index: number) {
+    if (index === 0) {
+      this.ListArr.sort((a, b) => {
+        return b.time - a.time
+      })
+    } else {
+      this.ListArr.sort((a, b) => {
+        return b.likeNum - a.likeNum
+      })
+    }
+  }
+
 
   build() {
     Column() {
       // 头部
-      InfoTop()
+      InfoTop({
+        onSort: (index: number) => {
+          this.handleSort(index)
+      }
+      })
       // 中间
       List() {
         ForEach(this.ListArr, (item: CommentData, index: number) => {
