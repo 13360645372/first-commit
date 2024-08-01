@@ -2,6 +2,10 @@ import InfoButtom from '../components/InfoButtom'
 import InfoItem from '../components/InfoItem'
 import InfoTop from '../components/InfoTop'
 import font from '@ohos.font'
+import {CommentData, createListRange} from '../model/CommentData'
+import { it } from '@ohos/hypium'
+
+let ListArr: CommentData[] = createListRange()
 
 @Entry
 @Component
@@ -15,15 +19,19 @@ struct Index {
       familySrc: '/fonts/iconfont.ttf'
     })
   }
+
+
   build() {
     Column() {
       // 头部
       InfoTop()
       // 中间
       List() {
-        ForEach(Array.from({ length: 20 }), () => {
+        ForEach(ListArr, (item: CommentData, index: number) => {
           ListItem() {
-            InfoItem()
+            InfoItem({
+              itemObj: item
+            })
           }
         })
 

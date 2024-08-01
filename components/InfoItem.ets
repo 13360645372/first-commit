@@ -1,25 +1,30 @@
+import { CommentData } from '../model/CommentData'
+
 @Component
 struct InfoItem {
+
+
+  @Prop itemObj: CommentData
   build() {
     Column() {
       // 1.头像。。。
       Row() {
-        Image($r('app.media.app_icon'))
+        Image(this.itemObj.avatar)
           .width(30).aspectRatio(1)
           .margin({ top: 10 })
           .borderRadius(15)
-        Text('黑暗王国')
+        Text(this.itemObj.name)
           .fontSize(13)
           .fontColor(Color.Gray)
           .margin({ top: 10, left: 8 })
-        Image($r('app.media.level_4'))
+        Image(this.itemObj.levelIcon)
           .width(20).aspectRatio(1)
           .margin({ top: 10, left: 8})
           .borderRadius(15)
       }
       // 2.评论内容
       Row() {
-        Text('字数越少，事情越大')
+        Text(this.itemObj.commentTxt)
           .fontWeight(700)
           .fontSize(13)
           .fontColor(Color.Black)
@@ -27,13 +32,13 @@ struct InfoItem {
       }
       // 3. 评论日期
       Row() {
-        Text('3天前')
+        Text(this.itemObj.timeString)
           .fontSize(13)
           .fontColor(Color.Gray)
         Row() {
-          Image($r('app.media.like_unselect'))
+          Image($r(this.itemObj.isLike ? 'app.media.like_select' : 'app.media.like_unselect' ))
             .width(15).aspectRatio(1)
-          Text('99')
+          Text(`${this.itemObj.likeNum}`)
             .fontSize(11)
             .fontColor(Color.Gray)
         }
