@@ -2,9 +2,11 @@ import { CommentData } from '../model/CommentData'
 
 @Component
 struct InfoItem {
+  onLikeClick = (index: number) => {}
 
 
   @Prop itemObj: CommentData
+  @Prop index: number
   build() {
     Column() {
       // 1.头像。。。
@@ -40,8 +42,11 @@ struct InfoItem {
             .width(15).aspectRatio(1)
           Text(`${this.itemObj.likeNum}`)
             .fontSize(11)
-            .fontColor(Color.Gray)
+            .fontColor(this.itemObj.isLike ? Color.Blue : Color.Gray)
         }
+        .onClick(() => {
+          this.onLikeClick(this.index)
+        })
       }
       .padding({ left: 40, top: 5})
       .width('100%')
