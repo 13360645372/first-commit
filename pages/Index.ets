@@ -1,3 +1,4 @@
+import InfoItem from '../components/InfoItem'
 import InfoTop from '../components/InfoTop'
 
 
@@ -9,12 +10,16 @@ struct Index {
       // 头部
       InfoTop()
       // 中间
-      Column() {
+      List() {
+        ForEach(Array.from({ length: 20 }), () => {
+          ListItem() {
+            InfoItem()
+          }
+        })
 
       }
-      .width('100%')
+      .padding({ bottom: 10 })
       .layoutWeight(1)
-      .backgroundColor(Color.Orange)
       // 底部
       Row() {
 
