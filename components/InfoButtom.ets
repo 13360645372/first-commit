@@ -2,6 +2,9 @@ import Core from '@ohos/hypium/src/main/core'
 
 @Component
 struct InfoButtom {
+  @State txt: string = ''
+
+  onSubmitComment = (content: string) => {}
   build() {
     Row() {
       Row() {
@@ -10,10 +13,15 @@ struct InfoButtom {
           .fontSize(18)
           .margin({ left: 20 })
         TextInput({
-          placeholder: '写评论...'
+          placeholder: '写评论...',
+          text: $$this.txt
         })
           .backgroundColor(Color.Transparent)
           .fontSize(18)
+          .onSubmit(() => {
+            this.onSubmitComment(this.txt)
+            this.txt = ''
+          })
       }
       .height(40)
       .backgroundColor('#f5f6f5')

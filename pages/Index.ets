@@ -20,6 +20,12 @@ struct Index {
     })
   }
 
+  SubmitComment (comment: string) {
+    this.ListArr.unshift(
+      new CommentData(`https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240323/24a7-52a54c327350fe430e27f8b5847a0bf5.jpg`, "我", new Date().getTime(), 5 , 0, comment, false),
+    )
+  }
+
 
   handleLike (index: number) {
     let itemData = this.ListArr[index]
@@ -56,7 +62,11 @@ struct Index {
       .padding({ bottom: 10 })
       .layoutWeight(1)
       // 底部
-      InfoButtom()
+      InfoButtom({
+        onSubmitComment: (comment: string) => {
+          this.SubmitComment(comment)
+        }
+      })
 
     }
     .width('100%')
