@@ -5,7 +5,7 @@ struct InfoItem {
   onLikeClick = (index: number) => {}
 
 
-  @Prop itemObj: CommentData
+  @ObjectLink itemObj: CommentData
   @Prop index: number
   build() {
     Column() {

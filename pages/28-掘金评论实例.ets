@@ -13,7 +13,7 @@ struct Index {
   // 一加载Index入口页面，就进行注册
   // aboutToAppear 会在组建一加载时，自动调用执行（生命周期函数）
   aboutToAppear(): void {
-  //   注册字体
+    //   注册字体
     font.registerFont({
       familyName: 'myfont',
       familySrc: '/fonts/iconfont.ttf'
@@ -39,7 +39,12 @@ struct Index {
     }
     itemData.isLike = !itemData.isLike
 
-    this.ListArr.splice(index, 1, itemData)
+
+    // 优化点赞头像闪烁的问题
+    // 因为splice语句会对整个数组进行更新
+    // 所以我们可以用@Oberved和@ObjectLink进行优化
+    // 在数据类上增加@Oberved以及在接受数据的位置前加上@ObjectLink
+    // this.ListArr.splice(index, 1, itemData)
   }
 
   handleSort (index: number) {
@@ -61,7 +66,7 @@ struct Index {
       InfoTop({
         onSort: (index: number) => {
           this.handleSort(index)
-      }
+        }
       })
       // 中间
       List() {
