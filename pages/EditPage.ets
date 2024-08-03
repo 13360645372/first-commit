@@ -19,7 +19,8 @@ struct EditPage {
         .onClick(() => {
           router.pushUrl({
             url: 'pages/DetailPage'
-          })
+          },router.RouterMode.Single)
+        //   路由模式router.RouterMode.Single 或者 Standard
         })
 
       // router.getLength() 获取页面栈长度

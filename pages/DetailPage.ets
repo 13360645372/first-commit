@@ -17,7 +17,7 @@ struct DetailPage {
         .onClick(() => {
           router.pushUrl({
             url: 'pages/EditPage'
-          })
+          },router.RouterMode.Single)
         })
     }
   }
