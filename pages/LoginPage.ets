@@ -11,7 +11,7 @@ struct LoginPage {
       Button('登录到首页')
         .onClick(() => {
           // replaceUrl 点击后不可返回
-          router.replaceUrl({
+          router.pushUrl({
             url: 'pages/Index'
           })
         })

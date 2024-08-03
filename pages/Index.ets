@@ -20,6 +20,12 @@ struct Index {
             url: 'pages/DetailPage'
           })
         })
+      Button('获取页面长度')
+        .onClick(() => {
+          AlertDialog.show({
+            message: router.getLength()
+          })
+        })
     }
   }
 }

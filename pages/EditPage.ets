@@ -1,10 +1,12 @@
+import { router } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct EditPage {
   @State message: string = '编辑页面';
 
   build() {
-    RelativeContainer() {
+    Column() {
       Text(this.message)
         .id('EditPageHelloWorld')
         .fontSize(50)
@@ -12,6 +14,26 @@ struct EditPage {
         .alignRules({
           center: { anchor: '__container__', align: VerticalAlign.Center },
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
+      Button('跳转')
+        .onClick(() => {
+          router.pushUrl({
+            url: 'pages/DetailPage'
+          })
+        })
+
+      // router.getLength() 获取页面栈长度
+      Button('获取页面长度')
+        .onClick(() => {
+          AlertDialog.show({
+            message: router.getLength()
+          })
+        })
+
+      // router.clear() 清空页面栈
+      Button('清空页面栈')
+        .onClick(() => {
+          router.clear()
         })
     }
     .height('100%')
