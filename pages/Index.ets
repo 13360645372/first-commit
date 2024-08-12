@@ -1,47 +1,82 @@
-import { router } from '@kit.ArkUI'
+import { router } from '@kit.ArkUI';
+import { common, Want } from '@kit.AbilityKit';
 
-interface ParamsObj {
-  username: string
-  mas: string
-}
-
+// 从一个Ability中唤起另一个Ability（同模块）
+// 1.准备 want 作为 UIAbility 的启动参数
+// 2.利用上下文对象 context， 调用 startAbility 传入 want 启动
 @Entry
 @Component
-struct Index {
-  @State myName: string = ''
+struct Page {
+  @State message: string = 'Hello World';
 
-  // 一进页面就会执行的函数 => 生命周期函数
-  aboutToAppear(): void {
-    console.log('传递过来的数据', JSON.stringify(router.getParams()))
-    // 接收参数
-    const params = router.getParams() as ParamsObj
-    this.myName = params.username
-  }
-
+  context = getContext(this) as common.UIAbilityContext
 
   build() {
     Column() {
-      Text('初始界面' + this.myName)
-        .fontSize(20)
-      Button('去编辑页')
-        .onClick(() => {
-          // pushUrl 点击后可以返回
-          router.pushUrl({
-            url: 'pages/EditPage'
-          })
-        })
-      Button('去详情页')
+      Text(this.message)
+        .id('PageHelloWorld')
+        .fontSize(50)
+        .fontWeight(FontWeight.Bold)
         .onClick(() => {
           router.pushUrl({
-            url: 'pages/DetailPage'
+            url: 'pages/LoginPages'
           })
         })
-      Button('获取页面长度')
+        .alignRules({
+          center: { anchor: '__container__', align: VerticalAlign.Center },
+          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
+      // want
+      Button('跳转买菜')
         .onClick(() => {
-          AlertDialog.show({
-            message: router.getLength()
-          })
+          let wantInfo: Want = {
+            deviceId: '', // 空表示本设备
+            bundleName: 'com.example.harmony', // App的包名
+            moduleName: 'entry', // 模块名
+            abilityName: 'TwoAbility', // src/main/module.json5
+            parameters: {
+              info: '来自entryAbility'
+            }
+          }
+          // 利用context startAbility 调起 UIAbility
+          // 返回一个promise对象
+          this.context.startAbility(wantInfo)
+            .then(() => {
+              console.log('startAbility 成功')
+            })
+            .catch(() => {
+              console.log('启动Ability 失败', Error)
+            })
+          /*router.pushUrl({
+            url: 'pages/TwoPage'
+          })*/
+        })
+      Button('test测试')
+        .onClick(() => {
+          let wantInfo: Want = {
+            deviceId: '', // 空表示本设备
+            bundleName: 'com.example.harmony', // App的包名
+            moduleName: 'TestModule', // 模块名
+            abilityName: 'TestModuleAbility', // src/main/module.json5
+            parameters: {
+              info: '来自entryAbility'
+            }
+          }
+          // 利用context startAbility 调起 UIAbility
+          // 返回一个promise对象
+          this.context.startAbility(wantInfo)
+            .then(() => {
+              console.log('startAbility 成功')
+            })
+            .catch(() => {
+              console.log('启动Ability 失败', Error)
+            })
+          /*router.pushUrl({
+            url: 'pages/TwoPage'
+          })*/
         })
     }
+    .height('100%')
+    .width('100%')
   }
 }

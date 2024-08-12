@@ -2,20 +2,21 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
-export default class EntryAbility extends UIAbility {
+export default class TwoAbility extends UIAbility {
+  // 当创建时
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onCreate');
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onCreate');
   }
-
+  // 当销毁时
   onDestroy(): void {
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onDestroy');
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onDestroy');
   }
-  // 当窗口舞台创建的时候
+  // 当界面舞台搭建时
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onWindowStageCreate');
-    // 一个 ability 可以有多个页面，互相跳转
-    windowStage.loadContent('pages/LoginPages', (err) => {
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    windowStage.loadContent('pages/TwoPage', (err) => {
       if (err.code) {
         hilog.error(0x0000, 'itheimaTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
@@ -26,16 +27,17 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onWindowStageDestroy');
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
+  // 当切换到前台
   onForeground(): void {
     // Ability has brought to foreground
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onForeground');
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onForeground');
   }
-
+  // 当切换到后台（比如：回到桌面，或者 切换其他任务）
   onBackground(): void {
     // Ability has back to background
-    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'EntryAbility onBackground');
+    hilog.info(0x0000, 'itheimaTag', '%{public}s', 'Ability onBackground');
   }
 }
